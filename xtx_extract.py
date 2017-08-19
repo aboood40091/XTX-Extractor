@@ -191,10 +191,7 @@ def readNv(f):
                 nv.compSel.append([0, 0, 0, 1])
 
             elif texHead.format_ == 0x3c:
-                nv.compSel.append([2, 1, 0, 5])
-
-            elif texHead.format_ in [0x39, 0x3b]:
-                nv.compSel.append([2, 1, 0, 3])
+                nv.compSel.append([0, 1, 2, 5])
 
             else:
                 nv.compSel.append([0, 1, 2, 3])
@@ -372,6 +369,11 @@ def get_curr_mip_off_size(width, height, bpp, curr_level, compressed):
     return off, size
 
 
+def warn_color():
+    print("")
+    print("Warning: colors might mess up!!")
+
+
 def writeNv(f, SRGB, n, numImages, numBlocks):
     width, height, format_, fourcc, dataSize, compSel, numMips, data = dds.readDDS(f, SRGB)
 
@@ -459,6 +461,22 @@ def writeNv(f, SRGB, n, numImages, numBlocks):
     print("")
     print("  bits per pixel  = " + str(bpp * 8))
     print("  bytes per pixel = " + str(bpp))
+
+    if texHead.format_ == 1:
+        if compSel not in [[0, 0, 0, 5], [0, 4, 4, 5]]:
+            warn_color()
+
+    elif texHead.format_ == 0xd:
+        if compSel not in [[0, 0, 0, 1], [0, 4, 4, 1]]:
+            warn_color()
+
+    elif texHead.format_ == 0x3c:
+        if compSel != [0, 1, 2, 5]:
+            warn_color()
+
+    else:
+        if compSel != [0, 1, 2, 3]:
+            warn_color()
 
     block_head_struct = NvBlockHeader()
     tex_blk_head = block_head_struct.pack(0x4E764248, 0x24, 0x78, 0x24, 2, numBlocks, 0)
