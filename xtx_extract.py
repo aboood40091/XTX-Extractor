@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # XTX Extractor
-# Version v0.1
+# Version 0.1
 # Copyright © 2017 Stella/AboodXD
 
 # This file is part of XTX Extractor.

@@ -1,7 +1,7 @@
 # XTX-Extractor v0.1
 Extracts textures from the Tegra X1 Texture ('NvFD' / .xtx file extension) format used in Switch games, and saves them as DDS.  
   
-Can Also convert DDS files into .gtx files!  
+Can Also convert DDS files into .xtx files!  
 
 ## Supported formats:
 * NVN_FORMAT_RGBA8
