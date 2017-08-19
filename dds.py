@@ -65,9 +65,9 @@ def readDDS(f, SRGB):
     abgr8_masks = {0xff: 0, 0xff00: 1, 0xff0000: 2, 0xff000000: 3, 0: 5}
     bgr8_masks = {0xff: 0, 0xff00: 1, 0xff0000: 2, 0: 5}
     a2rgb10_masks = {0x3ff00000: 0, 0xffc00: 1, 0x3ff: 2, 0xc0000000: 3, 0: 5}
-    rgb565_masks = {0x1f: 0, 0x7e0: 1, 0xf800: 2, 0: 5}
-    a1rgb5_masks = {0x1f: 0, 0x3e0: 1, 0x7c00: 2, 0x8000: 3, 0: 5}
-    argb4_masks = {0xf: 0, 0xf0: 1, 0xf00: 2, 0xf000: 3, 0: 5}
+    bgr565_masks = {0x1f: 0, 0x7e0: 1, 0xf800: 2, 0: 5}
+    a1bgr5_masks = {0x1f: 0, 0x3e0: 1, 0x7c00: 2, 0x8000: 3, 0: 5}
+    abgr4_masks = {0xf: 0, 0xf0: 1, 0xf00: 2, 0xf000: 3, 0: 5}
     l8_masks = {0xff: 0, 0: 5}
     a8l8_masks = {0xff: 0, 0xff00: 1, 0: 5}
 
@@ -161,15 +161,15 @@ def readDDS(f, SRGB):
                         compSel = [a2rgb10_masks[channel0], a2rgb10_masks[channel1], a2rgb10_masks[channel2], a2rgb10_masks[channel3]]
 
                 elif bpp == 2:
-                    if channel0 in a1rgb5_masks and channel1 in a1rgb5_masks and channel2 in a1rgb5_masks and channel3 in a1rgb5_masks:
+                    if channel0 in a1bgr5_masks and channel1 in a1bgr5_masks and channel2 in a1bgr5_masks and channel3 in a1bgr5_masks:
                         format_ = 0x3b
 
-                        compSel = [a1rgb5_masks[channel0], a1rgb5_masks[channel1], a1rgb5_masks[channel2], a1rgb5_masks[channel3]]
+                        compSel = [a1bgr5_masks[channel0], a1bgr5_masks[channel1], a1bgr5_masks[channel2], a1bgr5_masks[channel3]]
 
-                    elif channel0 in argb4_masks and channel1 in argb4_masks and channel2 in argb4_masks and channel3 in argb4_masks:
+                    elif channel0 in abgr4_masks and channel1 in abgr4_masks and channel2 in abgr4_masks and channel3 in abgr4_masks:
                         format_ = 0x39
 
-                        compSel = [argb4_masks[channel0], argb4_masks[channel1], argb4_masks[channel2], argb4_masks[channel3]]
+                        compSel = [abgr4_masks[channel0], abgr4_masks[channel1], abgr4_masks[channel2], abgr4_masks[channel3]]
 
             else:
                 if channel0 in bgr8_masks and channel1 in bgr8_masks and channel2 in bgr8_masks and channel3 == 0 and bpp == 3: # Kinda not looking good if you ask me
@@ -177,10 +177,10 @@ def readDDS(f, SRGB):
 
                     compSel = [bgr8_masks[channel0], bgr8_masks[channel1], bgr8_masks[channel2], 3]
 
-                if channel0 in rgb565_masks and channel1 in rgb565_masks and channel2 in rgb565_masks and channel3 in rgb565_masks and bpp == 2:
+                if channel0 in bgr565_masks and channel1 in bgr565_masks and channel2 in bgr565_masks and channel3 in bgr565_masks and bpp == 2:
                     format_ = 0x3c
 
-                    compSel = [rgb565_masks[channel0], rgb565_masks[channel1], rgb565_masks[channel2], rgb565_masks[channel3]]
+                    compSel = [bgr565_masks[channel0], bgr565_masks[channel1], bgr565_masks[channel2], bgr565_masks[channel3]]
 
         size = width * height * bpp
 
