@@ -462,15 +462,15 @@ def writeNv(f, SRGB, n, numImages, numBlocks):
     print("  bits per pixel  = " + str(bpp * 8))
     print("  bytes per pixel = " + str(bpp))
 
-    if texHead.format_ == 1:
-        if compSel not in [[0, 0, 0, 5], [0, 4, 4, 5]]:
+    if format_ == 1:
+        if compSel not in [[0, 0, 0, 5], [0, 5, 5, 5]]:
             warn_color()
 
-    elif texHead.format_ == 0xd:
-        if compSel not in [[0, 0, 0, 1], [0, 4, 4, 1]]:
+    elif format_ == 0xd:
+        if compSel not in [[0, 0, 0, 1], [0, 5, 5, 1]]:
             warn_color()
 
-    elif texHead.format_ == 0x3c:
+    elif format_ == 0x3c:
         if compSel != [0, 1, 2, 5]:
             warn_color()
 
